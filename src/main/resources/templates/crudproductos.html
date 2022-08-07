@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>CRUD Springboot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!-- Bootstrap CSS -->
+<link href="../static/css/bootstrap.css" rel="stylesheet"
+	th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+	<div class="container">
+		<br>
+		<h2>Mantenimiento de Productos</h2>
+		<form th:action="@{guardar}" th:object="${producto}" method="post">
+			<div class="form-group">
+				<label for="inputCodigo">Codigo</label>
+				<input th:field="*{idprod}" class="form-control" id ="inputCodigo" placeholder="P000">
+			</div>
+			<div class="form-group">
+				<label for="inputNombre">Nombre del Producto</label>
+				<input th:field="*{descripcion}" class="form-control" id ="inputNombre" 
+				placeholder="Ingrese nombre del producto">
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputStock">Stock</label>
+					<input th:field="*{stock}" class="form-control" id ="inputStock" placeholder="0">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputPrecio">Precio</label>
+					<input th:field="*{precio}" class="form-control" id ="inputPrecio" placeholder="0.00">
+				</div>				
+			</div>	
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputCategoria">Categoría</label>
+					<select id="inputCategoria" class="form-control" th:field="*{idtipo}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:each="c : ${lstCategorias}"
+								th:value="${c.idtipo}"
+								th:text ="${c.descripcion}">							
+						</option>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputEstado">Estado</label>
+					<select id="inputEstado" class="form-control" th:field="*{estado}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:value="1" th:text="Disponible"></option>
+						<option th:value="2" th:text="No_disponible"></option>
+					</select>
+				</div>				
+			</div>	
+			<button type="submit" class="btn btn-primary">Grabar</button>
+			<a href="/listar" class="btn btn-primary">Listar</a>		
+		</form>
+	</div>
+
+</body>
+</html>
+
+
+

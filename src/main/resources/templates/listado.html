@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>CRUD Springboot</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!-- Bootstrap CSS -->
+<link href="../static/css/bootstrap.css" rel="stylesheet"
+	th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+	<div class="container">
+		<br>
+		<h2>Listado de Productos</h2>
+		<table class="table table-hover" id="myTable">
+		<thead>
+			<tr>
+				<th scope="col">Código</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Stock</th>
+				<th scope="col">Precio</th>
+				<th scope="col">Categoria</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>	
+			<tr th:each="p : ${lstProductos}">
+				<td th:text="${p.idprod}"></td>
+				<td th:text="${p.descripcion}"></td>
+				<td th:text="${p.stock}"></td>
+				<td th:text="${p.precio}"></td>
+				<td th:text="${p.idtipo}"></td>
+				<td>
+					<form action="/editar" method="post">
+						<input type="hidden" name="idprod" th:value="${p.idprod}">
+						<button type="submit" class="btn btn-info">Editar</button>
+					</form>
+				</td>
+				<td>
+					<form action="@{/eliminar}" method="post">
+						<input type="hidden" name="idprod" th:value="${p.idprod}">
+						<button type="submit" class="btn btn-info">Eliminar</button>
+					</form>
+				</td>				
+			</tr>	
+		</tbody>
+		</table>
+		<a href="/cargar" class="btn btn-primary">Nuevo</a>	
+	</div>
+</body>
+</html>

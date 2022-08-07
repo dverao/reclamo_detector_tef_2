@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Reclamo Detector</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!-- Bootstrap CSS -->
+<link href="../static/css/bootstrap.css" rel="stylesheet"
+	th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+	<div class="container">
+		<br>
+		<div class="p-3 mb-2 bg-primary text-white">
+			<h2>Detector de Reclamos</h2>
+		</div>
+		
+		<form th:action="@{/evaluar}" th:object="${reclamodetector}" method="post">
+			<div class="form-group">
+					<label for="inputMetodo">Metodo</label>
+					<select id="inputMetodo" class="form-control" th:field="*{method}">
+						<option th:value="-1" th:text="Seleccione"></option>
+	                  <option th:value="J48">J48</option>
+	                  <option th:value="BAYES">Bayes net</option>
+	                  <option th:value="RANDOM">Random Forest</option>
+	                  <option th:value="SVM">Lib SVM</option>						
+					</select>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputSexo">Sexo</label>
+					<select id="inputSexo" class="form-control" th:field="*{codGenero}">
+						<option th:value="-1" th:text="Seleccione"></option>
+	                  <option th:value="0">Masculino</option>
+	                  <option th:value="1">Femenino</option>						
+					</select>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputEdad">Edad</label>
+					<input th:field="*{edad}" class="form-control" id ="inputEdad" placeholder="0">
+				</div>				
+			</div>	
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputAntiguedad">Antiguedad</label>
+					<input th:field="*{antiguedad}" class="form-control" id ="inputAntiguedad" placeholder="0">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputNroMes">Nro. Mes Incidencia</label>
+					<input th:field="*{incNroMes}" class="form-control" id ="inputNroMes" placeholder="0">
+				</div>				
+			</div>	
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputNroDia">Nro. Día Incidencia</label>
+					<input th:field="*{incNroDia}" class="form-control" id ="inputNroDia" placeholder="0">
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputSexo">Motivo Incidencia</label>
+					<select id="inputSexo" class="form-control" th:field="*{motivoInc}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:value="0">0-Problemas VOIP</option>
+						<option th:value="1">1-Problema TV Regulado</option>
+						<option th:value="2">2-Decodificador</option>
+						<option th:value="3">3-Masiva</option>
+						<option th:value="4">4-Intermitencia/Lentitud</option>
+						<option th:value="5">5-Repetidor</option>
+						<option th:value="6">6-No Navega</option>
+						<option th:value="7">7-Sin Señal</option>
+						<option th:value="8">8-Problema Internet Regulado</option>
+						<option th:value="9">9-Mala Señal</option>
+						<option th:value="10">10-Sin Servicio Total</option>
+						<option th:value="11">11-Servicios Suplementarios</option>
+						<option th:value="12">12-Trabajos Programados</option>
+						<option th:value="13">13-Ruido en Línea</option>
+						<option th:value="14">14-Modem</option>
+						<option th:value="15">15-Sin Tono</option>
+						<option th:value="16">16-Control Remoto</option>
+						<option th:value="17">17-Equipo Telefónico Fijo</option>
+						<option th:value="18">18-Problema de Voz Regulado</option>
+						<option th:value="19">19-Troba Saturada</option>
+						<option th:value="20">20-PROBLEMAS VARIOS</option>
+						<option th:value="21">21-EMERGENCIAS</option>
+						<option th:value="22">22-Cambio de IP / WIFI / NATEO PUERTOS</option>
+						<option th:value="23">23-Equipo Telefónico Inalámbrico</option>
+					</select>
+				</div>				
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="inputProd">Tipo de Producto</label>
+					<select id="inputProd" class="form-control" th:field="*{codProd}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:value="0">0-Mono Ba (Int)</option>
+						<option th:value="1">1-Trios CATV (Voz+Int+Tv)</option>
+						<option th:value="2">2-Duos TV BA (Int+Tv)</option>
+						<option th:value="3">3-Duos BA (Voz+Int)</option>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="inputPlan">Plan Contratado</label>
+					<select id="inputPlan" class="form-control" th:field="*{codPlan}">
+						<option th:value="-1" th:text="Seleccione"></option>
+						<option th:value="0">0-Internet Movistar RA</option>
+						<option th:value="1">1-SpeedyNaked 150 Mbps</option>
+						<option th:value="2">2-Internet Movistar</option>
+						<option th:value="3">3-SpeedyNaked 200 Mbps</option>
+						<option th:value="4">4-SpeedyNaked 60 Mbps</option>
+						<option th:value="5">5-SpeedyNaked 8 Mbps</option>
+						<option th:value="6">6-SpeedyNaked 70 Mbps</option>
+						<option th:value="7">7-SpeedyNaked 40 Mbps</option>
+						<option th:value="8">8-SpeedyNaked 180 Mbps</option>
+						<option th:value="9">9-SpeedyNaked 100 Mbps</option>
+						<option th:value="10">10-Dúo Plano Local Internet</option>
+						<option th:value="11">11-SpeedyNaked 50 Mbps</option>
+						<option th:value="12">12-Trío Plano Local Internet Estándar</option>
+						<option th:value="13">13-Dúo Internet Estándar HD</option>
+						<option th:value="14">14-Dúo Internet Estándar</option>
+						<option th:value="15">15-Dúo Internet Estándar A</option>
+						<option th:value="16">16-Dúo Internet Estándar RA</option>
+						<option th:value="17">17-Trío Plano Local Internet Estándar HD</option>
+						<option th:value="18">18-Dúo Internet TV Estándar HD</option>
+						<option th:value="19">19-Trío Voz Internet Estándar HD</option>
+						<option th:value="20">20-Duos 8 Mbps Estandar HD,</option>
+						<option th:value="21">21-Trío Voz Internet Estándar</option>
+						<option th:value="22">22-Dúo Internet Estándar HD RA</option>
+						<option th:value="23">23-Duos 40 Mbps Estandar</option>
+						<option th:value="24">24-Duos 50 Mbps Estandar HD,</option>
+						<option th:value="25">25-Duos 80 Mbps Estandar HD,</option>
+						<option th:value="26">26-Duos 20 Mbps Estandar</option>
+						<option th:value="27">27-Duos 40 Mbps Estandar HD,</option>
+						<option th:value="28">28-Duos 200 Mbps Estandar HD,</option>
+						<option th:value="29">29-Duos 100 Mbps Estandar HD,</option>
+						<option th:value="30">30-Dúo Plano Local Internet</option>
+						<option th:value="31">31-Duos Tarifa Plana Local Negocios 120 Mbps</option>
+						<option th:value="32">32-Dúo Voz Plano Local Internet</option>
+						<option th:value="33">33-Duos Tarifa Plana Local Negocios 100 Mbps</option>
+						<option th:value="34">34-Dúo Movistar Voz Internet RA</option>
+						<option th:value="35">35-Duos Tarifa Plana Local Negocios 25 Mbps</option>
+						<option th:value="36">36-Duos Tarifa Plana Local Negocios 30 Mbps</option>
+						<option th:value="37">37-Duos Tarifa Plana Local Negocios 40 Mbps</option>
+						<option th:value="38">38-Duos Tarifa Plana Local Negocios 50 Mbps</option>
+						<option th:value="39">39-Duos Tarifa Plana Local Negocios 80 Mbps</option>
+						<option th:value="40">40-Trío Plano Local Internet Estándar HD</option>
+						<option th:value="41">41-Trío Plano Local Internet Estándar</option>
+						<option th:value="42">42-Trios  200 Mbps Estandar HD,</option>
+						<option th:value="43">43-Trío Voz Internet Estándar</option>
+						<option th:value="44">44-Movistar Total TV HD</option>
+						<option th:value="45">45-Movistar Total HD</option>
+						<option th:value="46">46-Trío Voz Internet Estándar HD</option>
+						<option th:value="47">47-Trios Tarifa Plana Local Negocios 50 Mbps Estandar</option>
+						<option th:value="48">48-Trios Tarifa Plana Local Negocios 40 Mbps Estandar</option>
+						<option th:value="49">49-Trios Tarifa Plana Local Negocios 30 Mbps Estandar</option>
+						<option th:value="50">50-Trios  50 Mbps Estandar HD,</option>
+						<option th:value="51">51-Movistar Total</option>
+						<option th:value="52">52-Trío Movistar Voz Internet Estandar RV</option>
+						<option th:value="53">53-Trios Tarifa Plana Local Negocios 8 Mbps Estandar </option>
+						<option th:value="54">54-Trios  40 Mbps Estandar HD,</option>
+						<option th:value="55">55-Trío Movistar Voz Internet Estandar RA</option>
+						<option th:value="56">56-Trío Movistar Voz Internet Estandar HD RV</option>
+						<option th:value="57">57-Movistar Total HD RV</option>
+						<option th:value="58">58-Trios Tarifa Plana Local Negocios 20 Mbps Estandar</option>
+						<option th:value="59">59-Trío Movistar Voz Internet Estandar HD RA</option>
+						<option th:value="60">60-Trios Tarifa Plana Local Negocios 80 Mbps Estandar</option>
+						<option th:value="61">61-Trios  80 Mbps Estandar HD,</option>
+						<option th:value="62">62-Trios Tarifa Plana Local Negocios 100 Mbps Estanda</option>
+						<option th:value="63">63-Trios  150 Mbps Estandar HD,</option>
+					</select>
+				</div>				
+			</div>						
+			<button type="submit" class="btn btn-primary">Evaluar</button>
+		</form>
+		<br>
+		<div class="alert alert-danger" role="alert" th:if="${mensajeSI}" th:text="${mensajeSI}"></div>
+		<div class="alert alert-success" role="alert" th:if="${mensajeNO}" th:text="${mensajeNO}"></div>		
+	</div>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,14 @@
+@relation default-evaluate
+
+@attribute COD_CLIENTE numeric
+@attribute EDAD numeric
+@attribute ANTIGUEDAD_DIAS numeric
+@attribute INC_NRO_MES numeric
+@attribute INC_NRO_DIA_SEMANA numeric
+@attribute MOTIVO_INC numeric
+@attribute COD_PROD numeric
+@attribute COD_PLAN numeric
+@attribute COD_GENERO numeric
+@attribute RECLAMO {1,2}
+
+@data
